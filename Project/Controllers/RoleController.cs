@@ -7,18 +7,28 @@ using System.Threading.Tasks;
 using Service.API;
 using Model.API;
 using System.Collections;
+using System.Web.Http.Services;
+using System.Net;
+using System.Web.Http.Controllers;
+using System.Net.Http;
+using System.Threading;
+using System.IO;
 
 namespace Project.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RoleController : ControllerBase
+    public class RoleController : ControllerBase /*, IDisposable*/
     {
         protected IRoleServices _roleServices;
+       // public string UserAgent { get; }
+
         public RoleController(IRoleServices roleServices)
         {
             _roleServices = roleServices;
         }
+
+        public string userAgent { get; }
 
         [HttpPost]
         [Route("AddRoles")]
@@ -32,7 +42,7 @@ namespace Project.Controllers
         [HttpGet]
         [Route("GetRoles")]
         [Produces(typeof(IEnumerable<Role>))]
-        public async Task<IActionResult> GetStudents()
+        public async Task<IActionResult> GetRoles()
         {
             IEnumerable<Role> roles = await _roleServices.GetRoles();
             return Ok(roles);
@@ -62,5 +72,6 @@ namespace Project.Controllers
             }
             return NotFound();
         }
+ 
     }
 }

@@ -12,5 +12,7 @@ namespace Database.API
         }
 
         public DbSet<Role> Roles { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
     }
 }
